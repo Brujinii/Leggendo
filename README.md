@@ -267,6 +267,71 @@ leggendo/
         ├── pages/
         └── ...
 ```
+## 🔄 Integration with Anki
+
+Leggendo exports your word bank as a **CSV file** that can be imported into [Anki](https://apps.ankiweb.net/), a free spaced‑repetition flashcard system. The export uses a **cloze deletion** format, ideal for learning words in context.
+
+[insert screenshot: Leggendo export overlay showing editable cards]
+
+### 1. Create a custom note type (one‑time setup)
+
+Anki's built‑in "Cloze" note type works, but for best results create a dedicated note type with the fields in the exact order Leggendo expects:
+
+| CSV column | Field name (suggested) | Content |
+|------------|------------------------|---------|
+| 1 | `TargetLanguage` | Cloze sentence: `{{c1::word}}` |
+| 2 | `KnownLanguage` | Sentence translation |
+| 3 | `Hint` | Optional hint (shown on front) |
+| 4 | `Notes` | Extra notes (shown after answer) |
+| 5 | `Tags` | Space‑separated tags |
+
+**How to create the note type:**
+
+1. In Anki, go to **Tools → Manage Note Types**.
+2. Click **Add** → choose **Clone: Cloze** (or create from scratch).
+3. Name it, e.g. `Language Learning Cloze Deletion`.
+4. Add the five fields above (order matters). Delete any extra fields.
+5. **Optional but recommended:** Customise the card template so the hint appears only if present, and notes are shown on the back.
+
+[insert screenshot: Anki note type fields editor showing the five fields in order]
+
+### 2. Create a deck
+
+- From the Anki main window, click **Create Deck**.
+- Name it, e.g. `Italian Vocabulary` or `Languages::Italian` (using `::` creates a subdeck).
+- Leggendo does **not** automatically set the deck name – you will choose it during import.
+
+### 3. Export CSV from Leggendo
+
+1. In the reader, press `A` to add words to your word bank.
+2. On the **Export** page (or via the word bank panel inside a reader), select the cards you want to export.
+3. Edit the cloze sentence, translation, hint, and notes as needed.
+4. Click **Export X cards** → a file `leggendo_export.csv` is downloaded.
+
+[insert screenshot: Anki import dialog with field mapping highlighted]
+
+### 4. Import CSV into Anki
+
+1. In Anki, click **File → Import**.
+2. Select the downloaded `leggendo_export.csv` file.
+3. In the import dialog:
+   - **Note Type:** Choose the note type you created (`Language Learning Cloze Deletion`).
+   - **Deck:** Select the deck you created.
+   - **Field mapping:** Map the 5 columns in order (Anki will show column 1,2,3,4,5 – match them to your note type fields).
+   - **Allow HTML in fields:** Keep enabled (the cloze syntax uses HTML).
+   - **Separator type:** Comma.
+4. Click **Import**.
+
+After import, you will have cloze flashcards that hide the target word and reveal the translation and notes.
+
+### Exporting your note type for sharing (optional)
+
+If you want to share your note type with other Leggendo users or reuse it on another computer:
+
+1. In Anki, go to **Tools → Manage Note Types**.
+2. Select your note type and click **Export…**.
+3. Save the `.apkg` file. This package contains the note type (but no cards unless you also check "Include cards").
+4. To import it elsewhere, simply double‑click the `.apkg` file.
 
 ---
 
