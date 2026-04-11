@@ -271,69 +271,144 @@ leggendo/
 
 Leggendo exports your word bank as a **CSV file** that can be imported into [Anki](https://apps.ankiweb.net/), a free spaced‑repetition flashcard system. The export uses a **cloze deletion** format, ideal for learning words in context.
 
-[insert screenshot: Leggendo export overlay showing editable cards]
+A custom note type template is included in this repository (`Leggendo_Note_Type.apkg`) that provides rich formatting, dark mode support, and an intelligent image-loading system based on tags.
 
-### 1. Create a custom note type (one‑time setup)
+[insert screenshot: Example flashcard showing cloze deletion, hint, translation, and notes]
 
-Anki's built‑in "Cloze" note type works, but for best results create a dedicated note type with the fields in the exact order Leggendo expects:
+---
 
-| CSV column | Field name (suggested) | Content |
-|------------|------------------------|---------|
-| 1 | `TargetLanguage` | Cloze sentence: `{{c1::word}}` |
-| 2 | `KnownLanguage` | Sentence translation |
-| 3 | `Hint` | Optional hint (shown on front) |
-| 4 | `Notes` | Extra notes (shown after answer) |
-| 5 | `Tags` | Space‑separated tags |
+### ✨ Card Features
 
-**How to create the note type:**
+The included note type template offers:
 
-1. In Anki, go to **Tools → Manage Note Types**.
-2. Click **Add** → choose **Clone: Cloze** (or create from scratch).
-3. Name it, e.g. `Language Learning Cloze Deletion`.
-4. Add the five fields above (order matters). Delete any extra fields.
-5. **Optional but recommended:** Customise the card template so the hint appears only if present, and notes are shown on the back.
+| Feature | Description |
+|---------|-------------|
+| **Cloze deletion** | The target word is hidden (`{{c1::word}}`) – you must recall it in context. |
+| **Translation** | The known-language translation appears below the cloze sentence. |
+| **Hint field** | Optional hints shown on the front side (useful for subtle distinctions). |
+| **Notes field** | Additional notes or grammar explanations shown after revealing the answer. |
+| **Tag-based images** | Automatically loads images from your `collection.media` folder based on card tags (see below). |
+| **Dark mode support** | Full night mode compatibility with automatically adjusted colors. |
+| **Clean typography** | Readable fonts, proper spacing, and visual hierarchy optimized for language learning. |
 
-[insert screenshot: Anki note type fields editor showing the five fields in order]
+[insert screenshot: Front of card showing cloze sentence with hint]
+[insert screenshot: Back of card showing translation and notes]
 
-### 2. Create a deck
+---
 
-- From the Anki main window, click **Create Deck**.
-- Name it, e.g. `Italian Vocabulary` or `Languages::Italian` (using `::` creates a subdeck).
-- Leggendo does **not** automatically set the deck name – you will choose it during import.
+### 📥 Importing the Note Type Template
 
-### 3. Export CSV from Leggendo
+A ready-to-use note type is provided as `Leggendo_Note_Type.apkg` in the `anki_template/` folder of this repository.
+
+**To install:**
+
+1. **Double-click** the `Leggendo_Note_Type.apkg` file.
+2. Anki will open and show an import dialog.
+3. Click **Import** – the note type `Leggendo Cloze Deletion` will be added to your Anki.
+4. Verify installation: Go to **Tools → Manage Note Types** – you should see `Leggendo Cloze Deletion` in the list.
+
+> **Note:** The `.apkg` file contains only the note type (template), no example cards.
+
+[insert screenshot: Anki import dialog for .apkg file]
+
+---
+
+### 🖼️ Tag-Based Image System
+
+This template includes a powerful feature: **images load automatically based on card tags**.
+
+#### How it works
+
+1. When you add a card (via CSV import or manually), add tags like `apple` `mountain` `italy`.
+2. Place an image file in your Anki `collection.media` folder with the name `_TAG.jpg` (or `.jpeg` / `.png`). The image name must match the tag nane exactly, except for a preceding underscore; for the tag `apple`, the image name would be `_apple.jpg`. 
+3. The template automatically searches for `_apple.jpg`, `_mountain.png`, etc. and displays the first matching image it finds. 
+
+> **Pro tip:** In Leggendo, article tags are automatically included in the export. For the best results, use only 1 tag per card (Not including the path, eg. `@folder\subfolder`)
+
+#### Further examples
+
+| Tag | Image filename | Result |
+|-----|----------------|--------|
+| `apple` | `_apple.jpg` | Shows apple.jpg on the card |
+| `rome` | `_rome.jpeg` | Shows rome.jpeg |
+| `sunset` | `_sunset.png` | Shows sunset.png |
+
+#### How to add images to Anki's media folder
+
+1. From the Anki home page, hit `A`. This opens the add window, which allows cards to be added to your deck.
+2. Drag your chosen image, with the correct tag name format (**See:** examples above), into the add window, and release. The image has been added to your Anki media library. 
+
+> **Pro tip:** Use this to build visual associations! A card tagged `dog` can show a dog photo. A card tagged `italy` can show a picture of Rome. Images are powerful memory anchors.
+
+[insert screenshot: Card showing an image loaded via the tag system]
+
+---
+
+### 📤 Export CSV from Leggendo
 
 1. In the reader, press `A` to add words to your word bank.
 2. On the **Export** page (or via the word bank panel inside a reader), select the cards you want to export.
 3. Edit the cloze sentence, translation, hint, and notes as needed.
 4. Click **Export X cards** → a file `leggendo_export.csv` is downloaded.
 
-[insert screenshot: Anki import dialog with field mapping highlighted]
+[insert screenshot: Leggendo export overlay]
 
-### 4. Import CSV into Anki
+---
+
+### 📥 Import CSV into Anki
 
 1. In Anki, click **File → Import**.
 2. Select the downloaded `leggendo_export.csv` file.
 3. In the import dialog:
-   - **Note Type:** Choose the note type you created (`Language Learning Cloze Deletion`).
-   - **Deck:** Select the deck you created.
-   - **Field mapping:** Map the 5 columns in order (Anki will show column 1,2,3,4,5 – match them to your note type fields).
-   - **Allow HTML in fields:** Keep enabled (the cloze syntax uses HTML).
-   - **Separator type:** Comma.
+
+| Setting | Value |
+|---------|-------|
+| **Note Type** | `Leggendo Cloze Deletion` (the one you just imported) |
+| **Deck** | Select or create a deck (e.g., `Italian Vocabulary`) |
+| **Field mapping** | Map columns 1–5 in order to the note type fields |
+| **Allow HTML in fields** | ✅ Enabled (required for cloze syntax) |
+| **Separator type** | Comma |
+
+**Field mapping order:**
+
+| CSV column | Map to field |
+|------------|--------------|
+| 1 | `Target Language` |
+| 2 | `Known Language` |
+| 3 | `Hint` |
+| 4 | `Notes` |
+| 5 | `Tags` |
+
 4. Click **Import**.
 
-After import, you will have cloze flashcards that hide the target word and reveal the translation and notes.
-
-### Exporting your note type for sharing (optional)
-
-If you want to share your note type with other Leggendo users or reuse it on another computer:
-
-1. In Anki, go to **Tools → Manage Note Types**.
-2. Select your note type and click **Export…**.
-3. Save the `.apkg` file. This package contains the note type (but no cards unless you also check "Include cards").
-4. To import it elsewhere, simply double‑click the `.apkg` file.
+[insert screenshot: Anki CSV import dialog with field mapping]
 
 ---
+
+### 🏷️ Adding Tags for Images (After Import)
+
+After importing, you can add tags to cards to trigger images:
+
+1. In Anki's card browser, select one or more cards.
+2. Click **Add Tags** and type your tag (e.g., `apple`).
+3. Place an image named `_apple.jpg` in your `collection.media` folder.
+4. Review the card – the image will appear automatically!
+
+[insert screenshot: Anki browser showing tag addition]
+
+---
+
+### 🔧 Troubleshooting Anki Import
+
+| Problem | Solution |
+|---------|----------|
+| Cloze not working | Make sure `{{c1::word}}` appears in the Target Language field. |
+| Images not showing | Check the image filename is exactly `_TAG.jpg` (underscore + tag + extension). Ensure the image is in `collection.media`. |
+| Dark mode not working | Update Anki to the latest version. Dark mode requires Anki 2.1.50+. |
+| Fields misaligned | Re-check field mapping during CSV import – order must match exactly. |
+
+---
+
 
 ## 📄 License
 
