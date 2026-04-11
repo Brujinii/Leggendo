@@ -1,0 +1,31 @@
+# Python / backend
+__pycache__/
+*.pyc
+venv/
+*.db
+backend/*.db
+config.json
+backend/config.json
+.env
+backend/.env
+
+# Node / frontend
+node_modules/
+dist/
+dist-ssr/
+*.log
+npm-debug.log*
+frontend/node_modules/
+frontend/dist/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp

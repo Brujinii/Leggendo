@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Sepia (default) ── */
+:root, [data-theme="sepia"] {
+  --paper: #f5f0e8;
+  --paper-alt: #ede8e0;
+  --ink: #1a1612;
+  --ink-muted: #6b5e4e;
+  --accent: #c17b3f;
+  --accent-light: #e8d5b7;
+  --panel-bg: #fffdf8;
+  --border: #d4c9b5;
+  --unknown: #f5c84288;
+  --learning: #60a5fa66;
+  --known-bg: transparent;
+  --sidebar-w: 320px;
+}
+
+/* ── Light ── */
+[data-theme="light"] {
+  --paper: #ffffff;
+  --paper-alt: #f3f4f6;
+  --ink: #111827;
+  --ink-muted: #6b7280;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --panel-bg: #f9fafb;
+  --border: #e5e7eb;
+  --unknown: #fde68a88;
+  --learning: #93c5fd66;
+  --known-bg: transparent;
+}
+
+/* ── Dark ── */
+[data-theme="dark"] {
+  --paper: #1a1a2e;
+  --paper-alt: #16213e;
+  --ink: #e2e8f0;
+  --ink-muted: #94a3b8;
+  --accent: #f59e0b;
+  --accent-light: #78350f44;
+  --panel-bg: #0f0f23;
+  --border: #2d3748;
+  --unknown: #f59e0b44;
+  --learning: #3b82f644;
+  --known-bg: transparent;
+}
+
+/* ── Font sizes ── */
+[data-fontsize="sm"] { --reader-font-size: 1rem; }
+[data-fontsize="md"] { --reader-font-size: 1.15rem; }
+[data-fontsize="lg"] { --reader-font-size: 1.35rem; }
+
+[data-uifontsize="sm"] { font-size: 13px; }
+[data-uifontsize="md"] { font-size: 15px; }
+[data-uifontsize="lg"] { font-size: 17px; }
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── Word tokens ── */
+.word-token {
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 0 1px;
+  transition: background 0.12s;
+  line-height: 2;
+}
+.word-token:hover { background: var(--accent-light) !important; }
+.word-token.selected { background: var(--accent) !important; color: white; border-radius: 3px; }
+.word-token.status-unknown { background: var(--unknown); }
+.word-token.status-learning { background: var(--learning); }
+.word-token.status-known { background: var(--known-bg); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Kbd shortcut badges ── */
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  background: var(--paper-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--ink-muted);
+}
