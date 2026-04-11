@@ -2,8 +2,6 @@
 
 **A smart language-learning reader** – read articles in your target language, look up words instantly, track your progress, and export flashcards to Anki.
 
-[insert screenshot: Library view showing articles grouped by language and folder tags]
-
 ---
 
 ## ✨ Features
@@ -13,7 +11,7 @@
 - **Word status** – Mark words as *learning* to review them later.
 - **Sentence translation** – Press `T` to translate the whole sentence.
 - **Word bank** – Save words and their sentence context, then export to Anki as cloze‑deletion cards.
-- **Notes** – Attach personal notes to any selected text.
+- **Notes** – Attach personal notes to any selected text. Notes that are found in the same sentence as a word or phrase added to the word bank will automatically be imported in the Notes field of the word or phrase added to the word bank.
 - **Reading streaks** – Tracks daily reading activity.
 - **Progress statistics** – Words read, articles read, pending/exported cards.
 - **Folders via tags** – Organise articles with `@folder\subfolder` tags.
@@ -24,15 +22,20 @@
 
 ## 📸 Screenshots
 
-> *Placeholders – replace with actual screenshots.*
+### Home Page
+<img width="1918" height="1030" alt="home" src="https://github.com/user-attachments/assets/9c97ee61-ae9c-4083-bb29-1cc16c56a510" />
 
-| Reader view | Dictionary panel | Export overlay |
-|-------------|------------------|----------------|
-| [insert screenshot: reader with highlighted word and sidebar] | [insert screenshot: word translation + Wiktionary entry] | [insert screenshot: export screen with editable cards] |
+### Reader
+<img width="1918" height="1036" alt="readerview" src="https://github.com/user-attachments/assets/c0a3c3a5-4f10-4cef-9e03-4aead1a6c8a3" />
 
-| Streak card | Words learning page |
-|-------------|----------------------|
-| [insert screenshot: streak heatmap] | [insert screenshot: list of learning words] |
+### Words
+<img width="1918" height="1025" alt="wordslearning" src="https://github.com/user-attachments/assets/d982fbbb-8af7-4b12-bd55-d05921ad4a36" />
+
+### Notes
+<img width="1918" height="1022" alt="notes" src="https://github.com/user-attachments/assets/9bf904d8-965c-4d75-9f61-3efe4e69d9bc" />
+
+### Export
+<img width="1918" height="1025" alt="export" src="https://github.com/user-attachments/assets/e296f83e-b6ce-4e1c-9d38-c3636025e094" />
 
 ---
 
@@ -40,8 +43,8 @@
 
 - **Windows** (the provided scripts are for PowerShell)
 - **macOS / Linux** – manual steps are also described
-- **Python 3.10 or newer**
-- **Node.js 18+** (including `npm`)
+- **[Python 3.10 or newer]https://www.python.org/)** 
+- **[Node.js 18+](https://nodejs.org/en)** (including `npm`)
 
 ---
 
@@ -98,7 +101,7 @@
 
 Leggendo uses **DeepL** for word and sentence translations. The free tier gives you 500,000 characters/month – enough for hundreds of articles.
 
-1. Get a free API key at [DeepL Pro](https://www.deepl.com/pro#developer) (choose the **free** plan).
+1. Get a free API key at [DeepL](https://www.deepl.com/pro#developer) (choose the **free** plan).
 2. Start the app (see below), go to **Settings → API Keys**, paste your key, and click **Save**.
 3. Press **Test connection** to verify it works.
 
@@ -273,8 +276,6 @@ Leggendo exports your word bank as a **CSV file** that can be imported into [Ank
 
 A custom note type template is included in this repository (`Leggendo_Note_Type.apkg`) that provides rich formatting, dark mode support, and an intelligent image-loading system based on tags.
 
-[insert screenshot: Example flashcard showing cloze deletion, hint, translation, and notes]
-
 ---
 
 ### ✨ Card Features
@@ -291,8 +292,9 @@ The included note type template offers:
 | **Dark mode support** | Full night mode compatibility with automatically adjusted colors. |
 | **Clean typography** | Readable fonts, proper spacing, and visual hierarchy optimized for language learning. |
 
-[insert screenshot: Front of card showing cloze sentence with hint]
-[insert screenshot: Back of card showing translation and notes]
+<img width="1918" height="1103" alt="examplefrontanki" src="https://github.com/user-attachments/assets/655f907e-5d12-4b41-b453-42bec177b974" />
+
+<img width="1918" height="1105" alt="examplebackanki" src="https://github.com/user-attachments/assets/612dd26c-8710-4cac-beb7-08b57b28247e" />
 
 ---
 
@@ -304,12 +306,10 @@ A ready-to-use note type is provided as `Leggendo_Note_Type.apkg` in the `anki_t
 
 1. **Double-click** the `Leggendo_Note_Type.apkg` file.
 2. Anki will open and show an import dialog.
-3. Click **Import** – the note type `Leggendo Cloze Deletion` will be added to your Anki.
-4. Verify installation: Go to **Tools → Manage Note Types** – you should see `Leggendo Cloze Deletion` in the list.
+3. Click **Import** – the note type `Leggendo Note Type` will be added to your Anki.
+4. Verify installation: Go to **Tools → Manage Note Types** – you should see `Leggendo Note Type` in the list.
 
 > **Note:** The `.apkg` file contains only the note type (template), no example cards.
-
-[insert screenshot: Anki import dialog for .apkg file]
 
 ---
 
@@ -340,7 +340,7 @@ This template includes a powerful feature: **images load automatically based on 
 
 > **Pro tip:** Use this to build visual associations! A card tagged `dog` can show a dog photo. A card tagged `italy` can show a picture of Rome. Images are powerful memory anchors.
 
-[insert screenshot: Card showing an image loaded via the tag system]
+<img width="1577" height="925" alt="exampleimageanki" src="https://github.com/user-attachments/assets/2c71e40e-085e-4524-931e-e22d9175297d" />
 
 ---
 
@@ -350,8 +350,6 @@ This template includes a powerful feature: **images load automatically based on 
 2. On the **Export** page (or via the word bank panel inside a reader), select the cards you want to export.
 3. Edit the cloze sentence, translation, hint, and notes as needed.
 4. Click **Export X cards** → a file `leggendo_export.csv` is downloaded.
-
-[insert screenshot: Leggendo export overlay]
 
 ---
 
@@ -363,7 +361,7 @@ This template includes a powerful feature: **images load automatically based on 
 
 | Setting | Value |
 |---------|-------|
-| **Note Type** | `Leggendo Cloze Deletion` (the one you just imported) |
+| **Note Type** | `Leggendo Note Type` (the one you just imported) |
 | **Deck** | Select or create a deck (e.g., `Italian Vocabulary`) |
 | **Field mapping** | Map columns 1–5 in order to the note type fields |
 | **Allow HTML in fields** | ✅ Enabled (required for cloze syntax) |
@@ -381,7 +379,7 @@ This template includes a powerful feature: **images load automatically based on 
 
 4. Click **Import**.
 
-[insert screenshot: Anki CSV import dialog with field mapping]
+<img width="1691" height="372" alt="fieldmappinganki" src="https://github.com/user-attachments/assets/d48a3eb0-87ab-4cc0-97dd-df3107c47ddc" />
 
 ---
 
@@ -393,8 +391,6 @@ After importing, you can add tags to cards to trigger images:
 2. Click **Add Tags** and type your tag (e.g., `apple`).
 3. Place an image named `_apple.jpg` in your `collection.media` folder.
 4. Review the card – the image will appear automatically!
-
-[insert screenshot: Anki browser showing tag addition]
 
 ---
 
@@ -416,4 +412,4 @@ This project is open‑source. Feel free to use, modify, and share it.
 
 ---
 
-**Happy reading & learning!** 📚✨
+**Happy reading & learning!**
