@@ -17,7 +17,7 @@ import NotesPanel from '../components/NotesPanel'
 import RichEditor from '../components/RichEditor'
 import { useSettings } from '../context/SettingsContext'
 import {
-  tokenizePlain, tokenizeHtml, getSentenceForOffset,
+  tokenizePlain, tokenizeHtml, getSentenceForOffset, getSentenceForWord,
   charOffsetOfToken, findPhraseRange, blockStyle,
 } from '../lib/tokenizer'
 import type { InlineFormat } from '../lib/tokenizer'
@@ -194,8 +194,7 @@ const doLookup = useCallback(async (word: string, sentence: string) => {
     setDragStart(null); setDragEnd(null)
     dragStartRef.current = null; dragEndRef.current = null
     setSelectedIndex(tokenIdx)
-    const charOffset = charOffsetOfToken(toks, tokenIdx)
-    const sentence = getSentenceForOffset(plainTextRef.current, charOffset)
+    const sentence = getSentenceForWord(plainTextRef.current, word)
     setCurrentStatus(wordStatuses[word.toLowerCase()] === 'learning' ? 'learning' : null)
     doLookup(word, sentence)
   }, [doLookup, wordStatuses])
@@ -230,11 +229,7 @@ const doLookup = useCallback(async (word: string, sentence: string) => {
       if (lo > hi) return
       const selectedText = toks.slice(lo, hi + 1).join('').replace(/\s+/g, ' ').trim()
       if (!selectedText) return
-      const charOffset = charOffsetOfToken(toks, lo)
-      const plain = plainTextRef.current
-      const sentenceAtLo = getSentenceForOffset(plain, charOffset)
-      const sentenceAtHi = getSentenceForOffset(plain, charOffsetOfToken(toks, hi))
-      const sentence = sentenceAtLo === sentenceAtHi ? sentenceAtLo : selectedText
+      const sentence = getSentenceForWord(plainTextRef.current, selectedText.split(' ')[0])
       setDragStart(lo); setDragEnd(hi); setCurrentStatus(null)
       doLookup(selectedText, sentence)
     }

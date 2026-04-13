@@ -126,6 +126,18 @@ export function getSentenceForOffset(plainText: string, charOffset: number): str
   return plainText.trim()
 }
 
+export function getSentenceForWord(plainText: string, word: string): string {
+  const re = /[^.!?\n]+[.!?\n]*/g
+  let m: RegExpExecArray | null
+  const lower = word.toLowerCase()
+  while ((m = re.exec(plainText)) !== null) {
+    if (m[0].toLowerCase().includes(lower)) {
+      return m[0].trim()
+    }
+  }
+  return plainText.trim()
+}
+
 export function charOffsetOfToken(tokens: string[], idx: number): number {
   return tokens.slice(0, idx).join('').length
 }
