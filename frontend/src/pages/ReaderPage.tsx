@@ -194,7 +194,8 @@ const doLookup = useCallback(async (word: string, sentence: string) => {
     setDragStart(null); setDragEnd(null)
     dragStartRef.current = null; dragEndRef.current = null
     setSelectedIndex(tokenIdx)
-    const sentence = getSentenceForWord(plainTextRef.current, word)
+    const charOffset = charOffsetOfToken(toks, tokenIdx)
+    const sentence = getSentenceForWord(plainTextRef.current, word, charOffset)
     setCurrentStatus(wordStatuses[word.toLowerCase()] === 'learning' ? 'learning' : null)
     doLookup(word, sentence)
   }, [doLookup, wordStatuses])
@@ -229,7 +230,8 @@ const doLookup = useCallback(async (word: string, sentence: string) => {
       if (lo > hi) return
       const selectedText = toks.slice(lo, hi + 1).join('').replace(/\s+/g, ' ').trim()
       if (!selectedText) return
-      const sentence = getSentenceForWord(plainTextRef.current, selectedText.split(' ')[0])
+      const charOffset = charOffsetOfToken(toks, lo)
+      const sentence = getSentenceForWord(plainTextRef.current, selectedText.split(' ')[0], charOffset)
       setDragStart(lo); setDragEnd(hi); setCurrentStatus(null)
       doLookup(selectedText, sentence)
     }

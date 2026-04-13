@@ -87,7 +87,7 @@ export default function HomePage({ onOpenArticle }: Props) {
     if (!newTitle.trim() || !newText.trim()) return
     setSaving(true)
     try {
-      await createArticle({ 
+      const article = await createArticle({ 
         title: newTitle.trim(), 
         subtitle: newSubtitle, 
         text: newText, 
@@ -98,7 +98,7 @@ export default function HomePage({ onOpenArticle }: Props) {
       })
       setShowAdd(false)
       setNewTitle(''); setNewSubtitle(''); setNewText(''); setNewTags(''); setNewUrl('')
-      await load()
+      onOpenArticle(article.id)
     } catch (error) {
       console.error('Failed to create article:', error)
     } finally {

@@ -49,7 +49,7 @@ function parseHtmlBlocks(html: string): HtmlBlock[] {
       if (between) blocks.push({ tag: 'p', text: between, innerHtml: between })
     }
     const innerHtml = m[2]
-    const text = innerHtml.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+    const text = innerHtml.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')
     if (text) blocks.push({ tag: m[1].toLowerCase(), text, innerHtml })
     lastIndex = m.index + m[0].length
   }
@@ -118,24 +118,35 @@ export function tokenizeHtml(html: string): TokenizeHtmlResult {
 export function getSentenceForOffset(plainText: string, charOffset: number): string {
   const re = /[^.!?\n]+[.!?\n]*/g
   let m: RegExpExecArray | null
+  let last: string | null = null
   while ((m = re.exec(plainText)) !== null) {
     if (m.index <= charOffset && charOffset < m.index + m[0].length) {
       return m[0].trim()
     }
+    last = m[0].trim()
   }
-  return plainText.trim()
+  return last ?? plainText.trim()
 }
 
-export function getSentenceForWord(plainText: string, word: string): string {
+// Finds the sentence containing `word` that starts closest to `charOffset`.
+// This correctly handles repeated words by using the offset to disambiguate,
+// rather than blindly returning the first sentence that contains the word.
+export function getSentenceForWord(plainText: string, word: string, charOffset: number): string {
   const re = /[^.!?\n]+[.!?\n]*/g
-  let m: RegExpExecArray | null
   const lower = word.toLowerCase()
+  let m: RegExpExecArray | null
+  const candidates: { sentence: string; dist: number }[] = []
+
   while ((m = re.exec(plainText)) !== null) {
     if (m[0].toLowerCase().includes(lower)) {
-      return m[0].trim()
+      const dist = Math.abs(m.index - charOffset)
+      candidates.push({ sentence: m[0].trim(), dist })
     }
   }
-  return plainText.trim()
+
+  if (candidates.length === 0) return plainText.trim()
+  candidates.sort((a, b) => a.dist - b.dist)
+  return candidates[0].sentence
 }
 
 export function charOffsetOfToken(tokens: string[], idx: number): number {
